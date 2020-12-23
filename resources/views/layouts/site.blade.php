@@ -11,7 +11,7 @@
 
 
 
-  <title>Prestashop_Savemart</title>
+  <title>Accma</title>
   <meta name="description" content="المتجر مدعوم من طرف بريستاشوب">
   <meta name="keywords" content="">
 
@@ -81,10 +81,10 @@ var static_token = "28add935523ef131c8432825597b9928";
 
 <header id="header" class="header-3 sticky-menu">
 
-@include('includes.header-mobile')
-@include('includes.header-top')
-@include('includes.header-center')
-@include('includes.header-bottom')
+@include('includes.front.header-mobile')
+@include('includes.front.header-top')
+@include('includes.front.header-center')
+@include('includes.front.header-bottom')
 
 </header>
 
@@ -113,7 +113,7 @@ var static_token = "28add935523ef131c8432825597b9928";
 </aside>
 
         @yield('content')
-        @include('includes.footer')
+        @include('includes.front.footer')
 
 
 <div class="canvas-overlay"></div>
