@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function(){
-    return view('dashboard');
+Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
 });
 
-Route::group(['middleware'=>'auth:admin'], function () {
 
+Route::group(['middleware' => 'guest:admin'], function () {
+    Route::get('/login', 'Admin\LoginController@getLogin')->name('admin.getLogin');
+    Route::post('/login', 'Admin\LoginController@postLogin')->name('admin.Login');
 });
