@@ -20,7 +20,7 @@ class LoginController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if (Auth::guard('admin')->attempt(['email' => $email, 'password' => $password], $remember)) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with(['success'], 'تم تسجيل الدخول بنجاح');
         } else {
             return redirect()->back();
         }

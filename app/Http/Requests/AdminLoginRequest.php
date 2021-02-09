@@ -24,8 +24,19 @@ class AdminLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|email',
-            'password'=>'required|min:8',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
         ];
+    }
+
+    public function messages()
+    {
+        return
+            [
+                'required' => "هذا الحقل مطلوب",
+                'email' => "لا بد من ادخال صيغة صحيحة للبريد الإلكترونى",
+                'min' => "لا يمكن ادخال أقل من ثمانية أحرف",
+                'string' => "لا بد من إدخال صيغة صحيحة للكلمات"
+            ];
     }
 }

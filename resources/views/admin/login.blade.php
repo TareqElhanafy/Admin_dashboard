@@ -67,6 +67,7 @@
                                     <span>الدخول للوحة التحكم </span>
                                 </h6>
                             </div>
+                            @if ($errors->any())
 
                             <!-- begin alet section-->
                             <div class="row mr-2 ml-2">
@@ -75,6 +76,7 @@
                                 </button>
                             </div>
                             <!-- end alet section-->
+                            @endif
 
                             <div class="card-content">
                                 <div class="card-body">
@@ -87,8 +89,9 @@
                                             <div class="form-control-position">
                                                 <i class="ft-user"></i>
                                             </div>
-
-                                            <span class="text-danger"> </span>
+                                            @error('email')
+                                            <span class="text-danger"> {{ $message }}</span>
+                                            @enderror
 
                                         </fieldset>
                                         <fieldset class="form-group position-relative has-icon-left">
@@ -99,8 +102,9 @@
                                             <div class="form-control-position">
                                                 <i class="la la-key"></i>
                                             </div>
-                                            <span class="text-danger"> </span>
-                                        </fieldset>
+                                            @error('password')
+                                            <span class="text-danger"> {{ $message }}</span>
+                                            @enderror                                        </fieldset>
                                         <div class="form-group row">
                                             <div class="col-md-6 col-12 text-center text-md-left">
                                                 <fieldset>
