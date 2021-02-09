@@ -41,7 +41,7 @@ class LanguagesController extends Controller
     {
         $language = Language::find($id);
         if (!$language) {
-            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
+            return redirect()->route('admin.languages')->with('error',"هذه اللغة غير موجودة");
         }
 
         return view('admin.languages.edit', compact('language'));
@@ -49,26 +49,37 @@ class LanguagesController extends Controller
 
     public function update(AddLanguageRequest $request, $id)
     {
-        $language = Language::find($id);
-        if (!$language) {
-            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
+        try {
+            $language = Language::find($id);
+            if (!$language) {
+                return redirect()->route('admin.languages')->with('error',"هذه اللغة غير موجودة");
+            }
+            if (!$request->has('active')) {
+                $status = '0';
+            } else {
+                $status = '1';
+            }
+
+            $language->update([
+                'name' => $request->name,
+                'abbr' => $request->abbr,
+                'active' => $status,
+                'direction' => $request->direction,
+            ]);
+
+            return redirect()->route('admin.languages')->with('success', "تم تعديل اللغة  بنجاح");
+        } catch (\Exception $ex) {
+            return redirect()->route('admin.languages.edit',$language->id)->with('error',"هناك خطأ فى إتمام العملية");
+
         }
 
-        $language->update([
-            'name' => $request->name,
-            'abbr' => $request->abbr,
-            'active' => $request->active,
-            'direction' => $request->direction,
-        ]);
-
-        return redirect()->route('admin.languages')->with('success', "تم تعديل اللغة  بنجاح");
     }
 
     public function destroy($id)
     {
         $language = Language::find($id);
         if (!$language) {
-            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
+            return redirect()->route('admin.languages')->with('error',"هذه اللغة غير موجودة");
         }
         $language->delete();
         return redirect()->route('admin.languages')->with('success', "تم حذف اللغة بنجاح");
