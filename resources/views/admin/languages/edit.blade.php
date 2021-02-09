@@ -37,8 +37,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            {{-- @include('admin.includes.alerts.success')
-                            @include('admin.includes.alerts.errors') --}}
+                            @include('includes.alerts.success')
+                            @include('includes.alerts.errors')
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <form class="form" action="{{ route('admin.languages.update', $language->id) }}" method="POST"

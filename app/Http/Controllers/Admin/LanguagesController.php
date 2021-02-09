@@ -24,6 +24,8 @@ class LanguagesController extends Controller
     {
         if (!$request->has('active')) {
             $status = '0';
+        } else {
+            $status = '1';
         }
         $language = Language::create([
             'name' => $request->name,
@@ -31,7 +33,7 @@ class LanguagesController extends Controller
             'active' => $status,
             'direction' => $request->direction,
         ]);
-        return redirect()->route('admin.languages');
+        return redirect()->route('admin.languages')->with('success', "تم إضافة لغة جديدة بنجاح");
     }
 
 
@@ -39,7 +41,7 @@ class LanguagesController extends Controller
     {
         $language = Language::find($id);
         if (!$language) {
-            return redirect()->route('admin.languages');
+            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
         }
 
         return view('admin.languages.edit', compact('language'));
@@ -49,7 +51,7 @@ class LanguagesController extends Controller
     {
         $language = Language::find($id);
         if (!$language) {
-            return redirect()->route('admin.languages');
+            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
         }
 
         $language->update([
@@ -59,15 +61,16 @@ class LanguagesController extends Controller
             'direction' => $request->direction,
         ]);
 
-        return redirect()->route('admin.languages');
+        return redirect()->route('admin.languages')->with('success', "تم تعديل اللغة  بنجاح");
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $language = Language::find($id);
         if (!$language) {
-            return redirect()->route('admin.languages');
+            return redirect()->route('admin.languages')->with('errors',"هذه اللغة غير موجودة");
         }
         $language->delete();
-        return redirect()->route('admin.languages');
+        return redirect()->route('admin.languages')->with('success', "تم حذف اللغة بنجاح");
     }
 }
