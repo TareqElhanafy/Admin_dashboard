@@ -27,12 +27,21 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
 
     Route::group(['prefix' => 'languages'], function () {
         Route::get('/', 'LanguagesController@index')->name('admin.languages');
-        Route::get('/create','LanguagesController@create')->name('admin.languages.create');
-        Route::post('/store','LanguagesController@store')->name('admin.languages.store');
-        Route::get('/edit/{id}','LanguagesController@edit')->name('admin.languages.edit');
-        Route::post('/update/{id}','LanguagesController@update')->name('admin.languages.update');
-        Route::get('/delete/{id}','LanguagesController@destroy')->name('admin.languages.delete');
+        Route::get('/create', 'LanguagesController@create')->name('admin.languages.create');
+        Route::post('/store', 'LanguagesController@store')->name('admin.languages.store');
+        Route::get('/edit/{id}', 'LanguagesController@edit')->name('admin.languages.edit');
+        Route::post('/update/{id}', 'LanguagesController@update')->name('admin.languages.update');
+        Route::get('/delete/{id}', 'LanguagesController@destroy')->name('admin.languages.delete');
+    });
 
+    /**
+     * Main Categories Routes
+     */
+
+    Route::group(['prefix' => 'main-categories'], function () {
+        Route::get('/', 'MainCategoriesController@index')->name('admin.categories');
+        Route::get('/create', 'MainCategoriesController@create')->name('admin.categories.create');
+        Route::post('/store', 'MainCategoriesController@store')->name('admin.categories.store');
     });
 });
 

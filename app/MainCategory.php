@@ -16,4 +16,13 @@ class MainCategory extends Model
     protected $fillable = [
         'trans_lang', 'trans_of', 'name', 'slug', 'photo', 'active'
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where("active", 1);
+    }
+
+    public function getActive(){
+        return $this->active == 1 ? "مفعل": "غير مفعل ";
+    }
 }
