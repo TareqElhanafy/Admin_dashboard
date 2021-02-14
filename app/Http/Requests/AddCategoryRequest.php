@@ -24,7 +24,7 @@ class AddCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo'=>'required|mimes:png,jpg',
+            'photo'=>'required_without:id|mimes:png,jpg',
             'category'=>'required|array|min:1',
             'category.*.name'=>'required|string|max:100',
             'category.*.abbr'=>'required|max:10',

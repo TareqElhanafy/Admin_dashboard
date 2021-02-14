@@ -42,6 +42,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
         Route::get('/', 'MainCategoriesController@index')->name('admin.categories');
         Route::get('/create', 'MainCategoriesController@create')->name('admin.categories.create');
         Route::post('/store', 'MainCategoriesController@store')->name('admin.categories.store');
+        Route::get('/edit/{id}', 'MainCategoriesController@edit')->name('admin.categories.edit');
+        Route::post('/update/{id}', 'MainCategoriesController@update')->name('admin.categories.update');
+
+
     });
 });
 

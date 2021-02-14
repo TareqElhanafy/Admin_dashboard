@@ -26,43 +26,81 @@ class MainCategoriesController extends Controller
     {
 
 
-            if ($request->has('photo')) {
-                $image = $request->photo->store('main_categories');
+        if ($request->has('photo')) {
+            $image = $request->photo->store('main_categories');
+        }
+
+        $main_categories = collect($request->category);
+        $filter = $main_categories->filter(function ($value, $key) {
+            return $value['abbr'] === get_default_lang();
+        });
+        $defualt_category = array_values($filter->all())[0];
+
+        $defualt_category_id = MainCategory::insertGetId([
+            'trans_lang' => $defualt_category['abbr'],
+            'trans_of' => 0,
+            'name' => $defualt_category['name'],
+            'active' => $defualt_category['active'],
+            'photo' => $image
+        ]);
+
+        $categories = $main_categories->filter(function ($value, $key) {
+            return $value['abbr'] !== get_default_lang();
+        });
+
+        $categories_arr = [];
+
+        if (isset($categories) && $categories->count() > 0) {
+            foreach ($categories as $category) {
+                $categories_arr[] = [
+                    'trans_lang' => $category['abbr'],
+                    'trans_of' => $defualt_category_id,
+                    'name' => $category['name'],
+                    'active' => $category['active'],
+                    'photo' => $image,
+                ];
             }
+        }
 
-            $main_categories = collect($request->category);
-            $filter = $main_categories->filter(function ($value, $key) {
-                return $value['abbr'] === get_default_lang();
-            });
-            $defualt_category = array_values($filter->all())[0];
+        MainCategory::insert($categories_arr);
+        return redirect()->route('admin.categories')->with('success', 'تم إضافة قسم جديد بنجاح ');
+    }
 
-            $defualt_category_id = MainCategory::insertGetId([
-                'trans_lang' => $defualt_category['abbr'],
-                'trans_of' => 0,
-                'name' => $defualt_category['name'],
-                'active' => $defualt_category['active'],
-                'photo' => $image
-            ]);
 
-            $categories = $main_categories->filter(function ($value, $key) {
-                return $value['abbr'] !== get_default_lang();
-            });
+    public function edit($id)
+    {
+        $category = MainCategory::find($id);
+        if (!$category) {
+            return redirect()->route('admin.categories')->with('error', 'حدث خطأ ما ، هذا القسم غير موجود !');
+        }
+        return view('admin.maincategories.edit', compact('category'));
+    }
 
-            $categories_arr = [];
+    public function update(AddCategoryRequest $request, $id)
+    {
+        $category = MainCategory::find($id);
+        if (!$category) {
+            return redirect()->route('admin.categories')->with('error', 'حدث خطأ ما ، هذا القسم غير موجود !');
+        }
 
-            if (isset($categories) && $categories->count() > 0) {
-                foreach ($categories as $category) {
-                    $categories_arr[] = [
-                        'trans_lang' => $category['abbr'],
-                        'trans_of' => $defualt_category_id,
-                        'name' => $category['name'],
-                        'active' => $category['active'],
-                        'photo' => $image,
-                    ];
-                }
-            }
+        if ($request->has('photo')) {
+            $photo = $request->photo->store('main_categories');
+        } else {
+            $photo = $category->photo;
+        }
 
-            MainCategory::insert($categories_arr);
-            return redirect()->route('admin.categories')->with('success','تم إضافة قسم جديد بنجاح ');
+        if (!$request->has('category.0.active')) {
+            $request->request->add(['active' => '0']);
+        } else {
+            $request->request->add(['active' => '1']);
+        }
+        $storing_category = array_values($request->category)[0];
+        $category->update([
+            'name' => $storing_category['name'],
+            'photo' => $photo,
+            'active' => $request->active,
+        ]);
+
+        return redirect()->route('admin.categories')->with('success', 'تم تحديث القسم بنجاح');
     }
 }
