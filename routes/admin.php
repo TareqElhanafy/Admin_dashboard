@@ -44,9 +44,20 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
         Route::post('/store', 'MainCategoriesController@store')->name('admin.categories.store');
         Route::get('/edit/{id}', 'MainCategoriesController@edit')->name('admin.categories.edit');
         Route::post('/update/{id}', 'MainCategoriesController@update')->name('admin.categories.update');
-
-
     });
+
+    /**
+     * Vendors Routes
+     */
+
+     Route::group(['prefix' => 'vendors'], function () {
+         Route::get('/','VendorController@index')->name('admin.vendors');
+         Route::get('/create','VendorController@create')->name('admin.vendors.create');
+         Route::get('/store','VendorController@store')->name('admin.vendors.store');
+
+
+     });
+
 });
 
 

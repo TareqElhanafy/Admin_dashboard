@@ -155,7 +155,8 @@
                                                                      <span class="text-danger">{{ $message }} </span>
 
                                                                  </div>
-                                                                 @enderror                                                     </div>
+                                                                 @enderror
+                                                           </div>
                                                       </div>
 
                                                       <div class="col-md-6 hidden">

@@ -22,11 +22,18 @@ class MainCategory extends Model
         return $query->where("active", 1);
     }
 
-    public function getActive(){
-        return $this->active == 1 ? "مفعل": "غير مفعل ";
+    public function getActive()
+    {
+        return $this->active == 1 ? "مفعل" : "غير مفعل ";
     }
 
-    public function languages(){
+    public function languages()
+    {
         return $this->hasMany(self::class, 'trans_of');
+    }
+
+    public function vendors()
+    {
+        return $this->hasMany(Vendor::class);
     }
 }
