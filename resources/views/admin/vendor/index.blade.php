@@ -63,8 +63,8 @@
 
                                          <tr>
                                             <td>{{ $vendor->name }} </td>
-                                            <td>{{ $vendor->$category->name }} </td>
-                                            <td><img style="width: 100px; height:100px;" src="{{asset('storage/' . $vendor->photo)}}" alt=""></td>
+                                            <td>{{ $vendor->category->name }} </td>
+                                            <td><img style="width: 100px; height:100px;" src="{{asset('storage/' . $vendor->logo)}}" alt=""></td>
                                             <td>{{ $vendor->email }}</td>
                                             <td>{{ $vendor->mobile }}</td>
                                             <td>{{ $vendor->address }}</td>

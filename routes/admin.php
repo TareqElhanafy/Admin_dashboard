@@ -53,7 +53,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
      Route::group(['prefix' => 'vendors'], function () {
          Route::get('/','VendorController@index')->name('admin.vendors');
          Route::get('/create','VendorController@create')->name('admin.vendors.create');
-         Route::get('/store','VendorController@store')->name('admin.vendors.store');
+         Route::post('/store','VendorController@store')->name('admin.vendors.store');
 
 
      });

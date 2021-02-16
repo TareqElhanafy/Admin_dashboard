@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddVendorRequest;
 use App\MainCategory;
 use App\Vendor;
 use Illuminate\Http\Request;
@@ -17,7 +18,32 @@ class VendorController extends Controller
 
     public function create()
     {
-        $categories = MainCategory::where('trans_lang',get_default_lang())->active()->get();
+        $categories = MainCategory::where('trans_lang', get_default_lang())->active()->get();
         return view('admin.vendor.create', compact('categories'));
+    }
+
+    public function store(AddVendorRequest $request)
+    {
+        if ($request->has('logo')) {
+            $logo = $request->logo->store('vendors');
+        }
+
+        if (!$request->has('active')) {
+            $request->request->add(['active' => '0']);
+        } else {
+            $request->request->add(['active' => '1']);
+        }
+
+        Vendor::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'active' => $request->active,
+            'category_id' => $request->category_id,
+            'logo' => $logo
+        ]);
+
+        return redirect()->route('admin.vendors')->with('success', 'تم إضافة متجر جديد بنجاح');
     }
 }
