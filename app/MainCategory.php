@@ -25,4 +25,8 @@ class MainCategory extends Model
     public function getActive(){
         return $this->active == 1 ? "مفعل": "غير مفعل ";
     }
+
+    public function languages(){
+        return $this->hasMany(self::class, 'trans_of');
+    }
 }

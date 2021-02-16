@@ -69,7 +69,7 @@ class MainCategoriesController extends Controller
 
     public function edit($id)
     {
-        $category = MainCategory::find($id);
+        $category = MainCategory::with('languages')->find($id);
         if (!$category) {
             return redirect()->route('admin.categories')->with('error', 'حدث خطأ ما ، هذا القسم غير موجود !');
         }

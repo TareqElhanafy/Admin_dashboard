@@ -54,7 +54,6 @@
                                             <label> صوره القسم </label>
                                             <label id="projectinput7" class="file center-block">
                                                 <input type="file" id="file" name="photo">
-                                                <input type="hidden" name="id" value="{{$category->id}}">
                                                 <span class="file-custom"></span>
                                             </label>
                                             @error('photo')
@@ -73,6 +72,7 @@
                                                                class="form-control"
                                                                placeholder="ادخل اسم القسم  "
                                                                name="category[0][name]">
+                                                               <input type="hidden" name="id" value="{{$category->id}}">
                                                                @error("category.0.name")
                                                                <span class="text-danger">{{ $message }} </span>
                                                            </div>
@@ -122,7 +122,88 @@
                                             </button>
                                         </div>
                                     </form>
-                                </div>
+
+                                @isset($category->languages)
+                                @foreach($category->languages as $index => $translation)
+                                    <ul class="nav nav-tabs nav-underline no-hover-bg">
+                                        <li class="nav-item">
+                                          <a class="nav-link active" id="base-tab31" data-toggle="tab" aria-controls="tab31"
+                                          href="#tab31{{ $index }}" aria-expanded="true">{{ $translation->trans_lang }}</a>
+                                        </li>
+                                      </ul>
+                                      @endforeach
+                                      @endisset
+                                    <div class="tab-content px-1 pt-1">
+                                        <div role="tabpanel" class="tab-pane active" id="tab31{{ $index }}" aria-expanded="true" aria-labelledby="base-tab31">
+                                            <form class="form" action="{{ route('admin.categories.update', $translation->id) }}" method="POST"
+                                                enctype="multipart/form-data">
+                                             @csrf
+
+                                              <div class="form-body">
+                                                  <h4 class="form-section"><i class="ft-home"></i> بيانات  القسم </h4>
+
+                                                  <div class="row">
+                                                      <div class="col-md-6">
+                                                          <div class="form-group">
+                                                              <label for="projectinput1"> اسم القسم {{ __('trans.'.$translation->trans_lang) }} </label>
+                                                              <input type="text" value="{{$translation->name}}" id="name"
+                                                                     class="form-control"
+                                                                     placeholder="ادخل اسم القسم  "
+                                                                     name="category[0][name]">
+                                                                     <input type="hidden" name="id" value="{{$translation->id}}">
+                                                                     @error("category.0.name")
+                                                                     <span class="text-danger">{{ $message }} </span>
+
+                                                                 </div>
+                                                                 @enderror                                                     </div>
+                                                      </div>
+
+                                                      <div class="col-md-6 hidden">
+                                                          <div class="form-group">
+                                                              <input type="text" value="{{$translation->trans_lang}}" id="name"
+                                                                     class="form-control"
+                                                                     placeholder="ادخل أختصار اللغة  "
+                                                                     name="category[0][abbr]">
+                                                                     @error("category.0.abbr")
+                                                                     <span class="text-danger">{{ $message }} </span>
+                                                        </div>
+                                                                 @enderror
+                                                           </div>
+                                                      </div>
+                                                  </div>
+
+
+                                                  <div class="row">
+                                                      <div class="col-md-6">
+                                                          <div class="form-group mt-1">
+                                                              <input type="checkbox"  value="1" name="category[0][active]"
+                                                                     id="switcheryColor4"
+                                                                     class="switchery" data-color="success"
+                                                                     checked/>
+                                                              <label for="switcheryColor4"
+                                                                     class="card-title ml-1">الحالة </label>
+
+                                                              <span class="text-danger"></span>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+
+
+
+                                              <div class="form-actions">
+                                                  <button type="button" class="btn btn-warning mr-1"
+                                                          onclick="history.back();">
+                                                      <i class="ft-x"></i> تراجع
+                                                  </button>
+                                                  <button type="submit" class="btn btn-primary">
+                                                      <i class="la la-check-square-o"></i> حفظ
+                                                  </button>
+                                              </div>
+                                          </form>
+
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
