@@ -34,6 +34,6 @@ class MainCategory extends Model
 
     public function vendors()
     {
-        return $this->hasMany(Vendor::class);
+        return $this->hasMany(Vendor::class,'category_id');
     }
 }

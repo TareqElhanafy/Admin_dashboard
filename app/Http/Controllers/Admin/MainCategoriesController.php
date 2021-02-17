@@ -7,6 +7,7 @@ use App\Http\Requests\AddCategoryRequest;
 use App\MainCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MainCategoriesController extends Controller
 {
@@ -102,5 +103,23 @@ class MainCategoriesController extends Controller
         ]);
 
         return redirect()->route('admin.categories')->with('success', 'تم تحديث القسم بنجاح');
+    }
+
+    public function destroy($id)
+    {
+        $category = MainCategory::find($id);
+        if (!$category) {
+            return redirect()->route('admin.categories')->with('error', 'حدث خطأ ما ، هذا القسم غير موجود !');
+        }
+
+        $vendors = $category->vendors;
+        if (isset($vendors) && $vendors->count() > 0) {
+            return redirect()->route('admin.categories')->with('error', 'لا يمكن حذف هذا القسم');
+        }
+
+        Storage::delete($category->photo);
+
+        $category->delete();
+        return redirect()->route('admin.categories')->with('success', 'تم حذف القسم بنجاح');
     }
 }

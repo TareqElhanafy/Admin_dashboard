@@ -68,7 +68,7 @@
                                                      aria-label="Basic example">
                                                     <a href="{{ route('admin.categories.edit',$category->id) }}"
                                                        class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
-                                                       <a href="{{ route('admin.languages.delete',$category->id) }}"
+                                                       <a href="{{ route('admin.categories.delete',$category->id) }}"
                                                          class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>
 
 

@@ -47,7 +47,7 @@ class VendorController extends Controller
             'password' => $request->password
         ]);
 
-        Notification::send($vendor, new VendorCreated($vendor));
+        // Notification::send($vendor, new VendorCreated($vendor));
 
         return redirect()->route('admin.vendors')->with('success', 'تم إضافة متجر جديد بنجاح');
     }
