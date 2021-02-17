@@ -27,9 +27,10 @@ class AddVendorRequest extends FormRequest
             'logo' => 'required_without:id|mimes:png,jpg,jpeg',
             'name' => 'required|string|max:100',
             'address' => 'required|string|max:100',
-            'mobile' => 'required|string|max:100',
-            'email' => 'required|email',
+            'mobile' => "required|unique:vendors,mobile,$this->id,id|string|max:100",
+            'email' => "required|unique:vendors,email,$this->id,id",
             'category_id' => 'required|exists:main_categories,id',
+            'password' => 'required|string|min:8'
         ];
     }
 
@@ -42,7 +43,10 @@ class AddVendorRequest extends FormRequest
                 'max' => "لا يمكن ادخال أكثر من مائة أحرف",
                 'string' => "لا بد من إدخال صيغة صحيحة للكلمات",
                 'category_id.exists' => "هذا القسم غير موجود",
-                "mimes" => "هذا الملف غير مدعوم"
+                "mimes" => "هذا الملف غير مدعوم",
+                "min" => 'لا يمكن ادخال أقل من ثمانية أحرف',
+                "mobile.unique"=> "هذا الرقم موجود لدينا بالفعل !",
+                'email.unique' => "هذا الإيميل موجود لدينا بالفعل"
             ];
     }
 }

@@ -43,10 +43,11 @@ class VendorController extends Controller
             'mobile' => $request->mobile,
             'active' => $request->active,
             'category_id' => $request->category_id,
-            'logo' => $logo
+            'logo' => $logo,
+            'password' => $request->password
         ]);
 
-    Notification::send($vendor, new VendorCreated($vendor));
+        Notification::send($vendor, new VendorCreated($vendor));
 
         return redirect()->route('admin.vendors')->with('success', 'تم إضافة متجر جديد بنجاح');
     }

@@ -99,7 +99,18 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="projectinput1">كلمة المرور</label>
+                                                    <input type="password" value="" id="password"
+                                                           class="form-control"
+                                                           placeholder="أدخل كلمة المرور"
+                                                           name="password">
+                                                           @error('password')
+                                                           <span class="text-danger">{{ $message }} </span>
+                                                           @enderror
+                                                </div>
+                                            </div>
 
 
                                                 <div class="col-md-6">
@@ -121,6 +132,20 @@
                                                 </div>
 
 
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="projectinput1">  العنوان </label>
+                                                    <input type="text" value="" id="#pac-input"
+                                                           class="form-control"
+                                                           placeholder="ادخل العنوان "
+                                                           name="address">
+                                                      @error('address')
+                                                      <span class="text-danger">{{ $message }} </span>
+                                                      @enderror
+
+                                                </div>
+                                            </div>
+
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group mt-1">
@@ -136,20 +161,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="projectinput1">  العنوان </label>
-                                                    <input type="text" value="" id="#pac-input"
-                                                           class="form-control"
-                                                           placeholder="ادخل العنوان "
-                                                           name="address">
-                                                      @error('address')
-                                                      <span class="text-danger">{{ $message }} </span>
-                                                      @enderror
-
-                                                </div>
-                                            </div>
                                         </div>
+                                    </div>
+
                                     <div id="map" style="height: 500px; width:1000px"></div>
                                        <br>
                                         <div class="form-actions">

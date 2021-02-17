@@ -15,7 +15,7 @@ class Vendor extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'address', 'active', 'category_id', 'mobile', 'logo'
+        'name', 'email', 'address', 'active', 'category_id', 'mobile', 'logo','password'
     ];
 
     public function scopeActive($query)
@@ -30,5 +30,12 @@ class Vendor extends Model
     public function category()
     {
         return $this->belongsTo(MainCategory::class, 'category_id');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($value)) {
+            $this->attributes['password'] = bcrypt($value);
+        }
     }
 }
