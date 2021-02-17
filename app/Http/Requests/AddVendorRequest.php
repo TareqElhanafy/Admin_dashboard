@@ -27,10 +27,10 @@ class AddVendorRequest extends FormRequest
             'logo' => 'required_without:id|mimes:png,jpg,jpeg',
             'name' => 'required|string|max:100',
             'address' => 'required|string|max:100',
-            'mobile' => "required|unique:vendors,mobile,$this->id,id|string|max:100",
-            'email' => "required|unique:vendors,email,$this->id,id",
+            'mobile' => 'required|string|max:100|unique:vendors,mobile,'.$this->id,
+            'email' => 'required|email|unique:vendors,email,'.$this->id,
             'category_id' => 'required|exists:main_categories,id',
-            'password' => 'required|string|min:8'
+            'password' => 'required_without:id'
         ];
     }
 
@@ -39,7 +39,7 @@ class AddVendorRequest extends FormRequest
         return
             [
                 'required' => "هذا الحقل مطلوب",
-                'email' => "لا بد من ادخال صيغة صحيحة للبريد الإلكترونى",
+                'email' => "لا بد من ادخال صيغة صحيحة للبريد الإلكترونى'",
                 'max' => "لا يمكن ادخال أكثر من مائة أحرف",
                 'string' => "لا بد من إدخال صيغة صحيحة للكلمات",
                 'category_id.exists' => "هذا القسم غير موجود",

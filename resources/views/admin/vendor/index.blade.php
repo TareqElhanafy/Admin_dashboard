@@ -74,7 +74,7 @@
                                             <td>
                                                 <div class="btn-group" role="group"
                                                      aria-label="Basic example">
-                                                    <a href="{{ route('admin.categories.edit',$vendor->id) }}"
+                                                    <a href="{{ route('admin.vendors.edit',$vendor->id) }}"
                                                        class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">تعديل</a>
                                                        <a href="{{ route('admin.languages.delete',$vendor->id) }}"
                                                          class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">حذف</a>

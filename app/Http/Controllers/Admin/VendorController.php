@@ -51,4 +51,48 @@ class VendorController extends Controller
 
         return redirect()->route('admin.vendors')->with('success', 'تم إضافة متجر جديد بنجاح');
     }
+
+    public function edit($id)
+    {
+        $vendor = Vendor::find($id);
+        if (!$vendor) {
+            return redirect()->route('admin.vendors')->with('error', 'هذا المتجر غير موجود');
+        }
+        $categories = MainCategory::where('trans_lang', get_default_lang())->active()->get();
+        return view('admin.vendor.edit', compact('vendor', 'categories'));
+    }
+
+    public function update(AddVendorRequest $request, $id)
+    {
+
+
+        $vendor = Vendor::find($id);
+
+        if (!$vendor) {
+            return redirect()->route('admin.vendors')->with('error', 'هذا المتجر غير موجود');
+        }
+
+        $data = $request->only(['name', 'email', 'active', 'address', 'mobile', 'category_id']);
+
+        if ($request->has('logo')) {
+            $logo = $request->logo->store('vendors');
+        } else {
+            $logo = $vendor->logo;
+        }
+
+        $data['logo'] = $logo;
+
+        if ($request->has('password')) {
+            $data['password'] = $request->password;
+        }
+
+        if (!$request->has('active')) {
+           $data['active'] = '0';
+        } else {
+            $data['active'] = '1';
+        }
+        $vendor->update($data);
+
+        return redirect()->route('admin.vendors')->with('success', 'تم تعديل بيانات المتجر بنجاح');
+    }
 }
