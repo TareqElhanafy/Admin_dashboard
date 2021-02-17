@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddVendorRequest;
 use App\MainCategory;
+use App\Notifications\VendorCreated;
 use App\Vendor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class VendorController extends Controller
 {
@@ -34,7 +36,7 @@ class VendorController extends Controller
             $request->request->add(['active' => '1']);
         }
 
-        Vendor::create([
+        $vendor = Vendor::create([
             'name' => $request->name,
             'address' => $request->address,
             'email' => $request->email,
@@ -43,6 +45,8 @@ class VendorController extends Controller
             'category_id' => $request->category_id,
             'logo' => $logo
         ]);
+
+    Notification::send($vendor, new VendorCreated($vendor));
 
         return redirect()->route('admin.vendors')->with('success', 'تم إضافة متجر جديد بنجاح');
     }

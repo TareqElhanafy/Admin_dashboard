@@ -68,7 +68,7 @@
                                             <td>{{ $vendor->email }}</td>
                                             <td>{{ $vendor->mobile }}</td>
                                             <td>{{ $vendor->address }}</td>
-                                            <td>{{ $vendor->active }}</td>
+                                            <td>{{ $vendor->getActive() }}</td>
 
 
                                             <td>
