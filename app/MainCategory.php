@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Observers\MainCategoryObserver;
 use Illuminate\Database\Eloquent\Model;
 
 class MainCategory extends Model
@@ -35,5 +36,11 @@ class MainCategory extends Model
     public function vendors()
     {
         return $this->hasMany(Vendor::class,'category_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        MainCategory::observe(MainCategoryObserver::class);
     }
 }

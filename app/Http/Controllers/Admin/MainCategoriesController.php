@@ -119,7 +119,25 @@ class MainCategoriesController extends Controller
 
         Storage::delete($category->photo);
 
+        $category->languages()->delete();
         $category->delete();
+
         return redirect()->route('admin.categories')->with('success', 'تم حذف القسم بنجاح');
+    }
+
+    public function changeStatus($id)
+    {
+        $category = MainCategory::find($id);
+        if (!$category) {
+            return redirect()->route('admin.categories')->with('error', 'حدث خطأ ما ، هذا القسم غير موجود !');
+        }
+
+        $status = $category->active == "1" ? "0" : "1";
+
+        $category->update([
+            'active' => $status,
+        ]);
+
+        return redirect()->route('admin.categories')->with('success', 'تم تغيير حالة القسم بنجاح');
     }
 }

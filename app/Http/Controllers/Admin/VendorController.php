@@ -9,6 +9,7 @@ use App\Notifications\VendorCreated;
 use App\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 
 class VendorController extends Controller
 {
@@ -64,8 +65,6 @@ class VendorController extends Controller
 
     public function update(AddVendorRequest $request, $id)
     {
-
-
         $vendor = Vendor::find($id);
 
         if (!$vendor) {
@@ -87,12 +86,40 @@ class VendorController extends Controller
         }
 
         if (!$request->has('active')) {
-           $data['active'] = '0';
+            $data['active'] = '0';
         } else {
             $data['active'] = '1';
         }
         $vendor->update($data);
 
         return redirect()->route('admin.vendors')->with('success', 'تم تعديل بيانات المتجر بنجاح');
+    }
+
+    public function destroy($id)
+    {
+        $vendor = Vendor::find($id);
+        if (!$vendor) {
+            return redirect()->route('admin.vendors')->with('error', 'حدث خطأ ما ، هذا المتجر غير موجود !');
+        }
+        Storage::delete($vendor->photo);
+
+        $vendor->delete();
+
+        return redirect()->route('admin.vendors')->with('success', 'تم حذف المتجر بنجاح');
+    }
+
+    public function changeStatus($id)
+    {
+        $vendor = Vendor::find($id);
+        if (!$vendor) {
+            return redirect()->route('admin.vendors')->with('error', 'حدث خطأ ما ، هذا المتجر غير موجود !');
+        }
+
+        $status = $vendor->active == "1" ? "0" : "1";
+        $vendor->update([
+            'active' => $status,
+        ]);
+
+        return redirect()->route('admin.vendors')->with('success', 'تم تغيير حالة المتجر بنجاح');
     }
 }
