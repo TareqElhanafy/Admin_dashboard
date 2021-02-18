@@ -7,21 +7,6 @@
             </li>
 
             <li class="nav-item"><a href=""><i class="la la-home"></i>
-                <span class="menu-title" data-i18n="nav.dash.main">الأقسام الرئيسية </span>
-                <span
-                    class="badge badge badge-info badge-pill float-right mr-2">{{ App\MainCategory::count() }}</span>
-            </a>
-                <ul class="menu-content">
-                    <li class="active"><a class="menu-item" href="{{ route('admin.categories') }}"
-                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
-                    </li>
-                    <li><a class="menu-item" href="{{ route('admin.categories.create') }}" data-i18n="nav.dash.crypto">أضافة
-                        قسم جديد </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item"><a href=""><i class="la la-home"></i>
                 <span class="menu-title" data-i18n="nav.dash.main">اللغات </span>
                 <span
                     class="badge badge badge-info badge-pill float-right mr-2">{{ App\Language::count() }}</span>
@@ -36,6 +21,40 @@
                 </ul>
             </li>
 
+            <li class="nav-item"><a href=""><i class="la la-home"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">الأقسام الرئيسية </span>
+                <span
+                    class="badge badge badge-info badge-pill float-right mr-2">{{ App\MainCategory::count() }}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{ route('admin.categories') }}"
+                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('admin.categories.create') }}" data-i18n="nav.dash.crypto">أضافة
+                        قسم جديد </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="nav-item"><a href=""><i class="la la-male"></i>
+                <span class="menu-title" data-i18n="nav.dash.main">الأقسام الفرعية   </span>
+                <span
+                    class="badge badge badge-success badge-pill float-right mr-2">{{ App\SubCategory::count() }}</span>
+            </a>
+                <ul class="menu-content">
+                    <li class="active"><a class="menu-item" href="{{ route('admin.subcategories') }}"
+                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('admin.subcategories.create') }}" data-i18n="nav.dash.crypto">أضافة
+                        قسم فرعى جديد </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
             <li class="nav-item"><a href=""><i class="la la-group"></i>
                 <span class="menu-title" data-i18n="nav.dash.main">المتاجر </span>
                 <span
@@ -47,21 +66,6 @@
                     </li>
                     <li><a class="menu-item" href="{{ route('admin.vendors.create') }}" data-i18n="nav.dash.crypto">أضافة
                         متجر </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item"><a href=""><i class="la la-male"></i>
-                <span class="menu-title" data-i18n="nav.dash.main">المدربين  </span>
-                <span
-                    class="badge badge badge-success badge-pill float-right mr-2"></span>
-            </a>
-                <ul class="menu-content">
-                    <li class="active"><a class="menu-item" href=""
-                                          data-i18n="nav.dash.ecommerce"> عرض الكل </a>
-                    </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.dash.crypto">أضافة
-                        مدرب </a>
                     </li>
                 </ul>
             </li>

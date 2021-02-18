@@ -61,6 +61,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'auth:admin'], function ()
         Route::get('/delete/{id}', 'VendorController@destroy')->name('admin.vendors.delete');
         Route::get('/change-status/{id}', 'VendorController@changeStatus')->name('admin.vendors.changeStatus');
     });
+
+    Route::group(['prefix' => 'sub-categories'], function () {
+        Route::get('/', 'SubCategoryController@index')->name('admin.subcategories');
+        Route::get('/create', 'SubCategoryController@create')->name('admin.subcategories.create');
+    });
 });
 
 

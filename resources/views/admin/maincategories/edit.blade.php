@@ -131,8 +131,7 @@
                                           href="#tab31{{ $index }}" aria-expanded="true">{{ $translation->trans_lang }}</a>
                                         </li>
                                       </ul>
-                                      @endforeach
-                                      @endisset
+
                                     <div class="tab-content px-1 pt-1">
                                         <div role="tabpanel" class="tab-pane active" id="tab31{{ $index }}" aria-expanded="true" aria-labelledby="base-tab31">
                                             <form class="form" action="{{ route('admin.categories.update', $translation->id) }}" method="POST"
@@ -205,6 +204,8 @@
 
                                         </div>
                                     </div>
+                                    @endforeach
+                                    @endisset
                             </div>
                         </div>
                     </div>

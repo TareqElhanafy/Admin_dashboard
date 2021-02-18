@@ -38,6 +38,11 @@ class MainCategory extends Model
         return $this->hasMany(Vendor::class,'category_id');
     }
 
+    public function subCategories()
+    {
+        return $this->hasMany(SubCategory::class,'category_id');
+    }
+
     protected static function boot()
     {
         parent::boot();
